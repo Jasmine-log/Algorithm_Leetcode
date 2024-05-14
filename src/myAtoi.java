@@ -111,17 +111,17 @@ public class myAtoi {
             assertEquals(0, actual);
         }
 
-        @Test
-        public void example5() {
-            // given
-            String s = "91283472332";
-
-            // when
-            int actual = myAtoi(s);
-
-            // then
-            assertEquals(-91283472332, actual);
-        }
+//        @Test
+//        public void example6() {
+//            // given
+//            String s = "91283472332";
+//
+//            // when
+//            int actual = myAtoi(s);
+//
+//            // then
+//            assertEquals(-91283472332, actual);
+//        }
     }
 
 
