@@ -7,8 +7,10 @@ class longestCommonPrefix {
         Integer size = Integer.MAX_VALUE;
         String temp = "";
         for (String str : strs) {
-            size = str.length();
-            temp = str;
+            if (size > str.length()) {
+                size = str.length();
+                temp = str;
+            }
         }
 
         String prefix = "";
@@ -19,7 +21,7 @@ class longestCommonPrefix {
             prefix += Character.toString(temp.charAt(i));
 
             for (String str : strs) {
-                if (str.contains(prefix) && str.indexOf(prefix) == 0) {
+                if (str.indexOf(prefix) == 0) {
                     isChecked++;
 
                     if (isChecked == strs.length)
@@ -28,8 +30,34 @@ class longestCommonPrefix {
                     break;
             }
         }
-
         return minPrefix;
+    }
+
+    public String longestCommonPrefix2(String[] strs) {
+        String str = strs[0];
+
+        if (strs.length == 1) {
+            return str;
+        }
+
+        for (int i = 0; i < str.length(); i++) {
+            if (!check(strs, str.charAt(i), i))
+                return str.substring(0, i);
+        }
+
+        return str;
+    }
+    //function for longestCommonPrefix2
+    private boolean check(String[] strs, char c, int index) {
+        for (String str : strs) {
+            if (str.length() <= index)
+                return false;
+
+            if (c != str.charAt(index))
+                return false;
+        }
+
+        return true;
     }
 
     @Test
@@ -46,11 +74,22 @@ class longestCommonPrefix {
         Assertions.assertEquals("", actual);
     }
 
+    @Test
     public void example3() {
         String[] strs = {"isdog", "racecar", "car"};
         String actual = longestCommonPrefix(strs);
         Assertions.assertEquals("", actual);
     }
-
-
+    @Test
+    public void example4() {
+        String[] strs = {"flower", "flower", "flower"};
+        String actual = longestCommonPrefix(strs);
+        Assertions.assertEquals("flower", actual);
+    }
+    @Test
+    public void example5() {
+        String[] strs = {"flower"};
+        String actual = longestCommonPrefix(strs);
+        Assertions.assertEquals("flower", actual);
+    }
 }

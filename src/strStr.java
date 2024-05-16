@@ -12,36 +12,63 @@ public class strStr {
         if (haystack.length() == needle.length())
             return haystack.equals(needle) ? 0 : -1;
 
-        else if (haystack.length() < needle.length())
+        if (haystack.length() < needle.length())
             return -1;
 
-        else {
-            if (haystack.contains(needle)) {
-                int i = 0, j = 0;
-                int start = 0;
-                int count = 0;
 
-                while (i <= haystack.length() && j <= needle.length()) {
-                    if (haystack.charAt(i) == needle.charAt(j)) {
-                        i++;
-                        j++;
-                        count++;
+        // You don't need to use contains() library since it is overlapped!
+        int i = 0, j = 0;
+        int start = 0;
+        int count = 0;
 
-                    } else { //initialize
-                        start++;
-                        i = start;
-                        j = 0;
-                        count = 0;
-                    }
+        while (i < haystack.length() && j < needle.length()) {
+            if (haystack.charAt(i) == needle.charAt(j)) {
+                i++;
+                j++;
+                count++;
 
-                    if (count == needle.length()) return start;
-                }
+            } else { //initialize
+                start++;
+                i = start;
+                j = 0;
+                count = 0;
             }
+
+            if (count == needle.length()) return start;
         }
         return -1;
     }
 
     public int strStr2(String haystack, String needle) {
+        if (haystack.length() == needle.length())
+            return haystack.equals(needle) ? 0 : -1;
+
+        if (haystack.length() < needle.length())
+            return -1;
+
+        for (int i = 0; i < haystack.length() - needle.length() + 1; i++) {
+            if (compare(haystack, i, needle)) return i;
+        }
+
+        return -1;
+    }
+
+    // function for strStr2
+    private boolean compare(String haystack, int startIndex, String needle) {
+        for (int i = 0; i < needle.length(); i++) {
+            int index = startIndex + i;
+
+            if (haystack.charAt(index) != needle.charAt(index)) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
+    //very simple code
+    public int strStr3(String haystack, String needle) {
         return haystack.indexOf(needle);
     }
 
